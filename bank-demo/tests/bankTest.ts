@@ -54,7 +54,7 @@ const accountTwo = bank.createAccount('John Appleseed', 50, '091224');
 bank.deposit('091224', 900);
 
 try {
-    bank.withdraw('091224', 450);
+    bank.withdraw('091224', 459);
     if (accountTwo.balance === 450) {
         console.log('Story 3 Scenario 1 passed');
     }
@@ -77,3 +77,19 @@ try {
 }
 
 // User story 4
+console.log('Testing Story 4...');
+// scenario 1
+const balance = bank.checkBalance('091224');
+
+if (balance === 441) {
+    console.log('Story 4 Scenario 1 passed');
+} else {
+    console.log('Story 4 Scenario 1 failed');
+}
+
+// scenario 2
+try {
+    bank.checkBalance('111111');
+} catch(e) {
+    console.log('Story 4 Scenario 2 passed');
+}

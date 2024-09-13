@@ -90,4 +90,19 @@ export default class Bank {
             }
         }
     }
+
+    /**
+     * This method shows the balance for a given account.
+     * @param {string} accountNumber 
+     * @returns -- The account balance
+     */
+    public checkBalance(accountNumber: string): number {
+        const account = this.isAccountExists(accountNumber);
+
+        if (account === undefined) {
+            throw new Error('Account number is wrong or does not exist');
+        } else {
+            return account.balance;
+        }
+    }
 }
