@@ -50,7 +50,7 @@ export default class Bank {
     }
 
     /**
-     * This method deposits the given amount of money
+     * This method deposits the given amount of money, if the provided account number and amounts are valid.
      * @param {string} accountNumber 
      * @param {number} amount 
      */
@@ -62,9 +62,31 @@ export default class Bank {
         } else {
             if (this.isValidAmount(amount)) {
                 account.balance += amount;
-                console.log("Added %d to the account.", amount);
+                console.log("Added $%d to the account.", amount);
             } else {
                 throw new Error('Cannot add a negative amount to the account.');
+            }
+        }
+    }
+
+    /**
+     * This method withdraws the given amount of money, if there is enough and the provided account number is valid.
+     * @param {string} accountNumber 
+     * @param {number} amount 
+     */
+    public withdraw(accountNumber: string, amount: number): void {
+        const account = this.isAccountExists(accountNumber);
+
+        if (account === undefined) {
+            throw new Error('Account number is wrong or does not exist.');
+        } else {
+            if (!this.isValidAmount(amount)) {
+                throw new Error('Cannot add a negative amount to the account.');
+            } else if (account.balance >= amount) {
+                account.balance -= amount;
+                console.log('Withdrew $%d from the account.', amount);
+            } else {
+                throw new Error('Not enough funds to make withdrawal.');
             }
         }
     }
