@@ -1,4 +1,4 @@
-// This is a tyoe for all bank accounts in the bank
+// This is a type for all bank accounts in the bank
 interface BankAccount {
     name: string;
     age: number;
@@ -38,5 +38,34 @@ export default class Bank {
         const account = {name, age, accountNumber, balance:0};
         this.accounts.push(account);
         return account;
+    }
+
+    /**
+     * Checks if the given amount is valid, i.e, a positive number.
+     * @param {number} amnt 
+     * @returns {Boolean} True if the given amount is a valid amount, false otherwise.
+     */
+    private isValidAmount(amnt: number): boolean {
+        return typeof amnt === 'number' && amnt > 0;
+    }
+
+    /**
+     * This method deposits the given amount of money
+     * @param {string} accountNumber 
+     * @param {number} amount 
+     */
+    public deposit(accountNumber: string, amount: number): void {
+        const account = this.isAccountExists(accountNumber);
+
+        if (account === undefined) {
+            throw new Error('Account number is wrong or does not exist.');
+        } else {
+            if (this.isValidAmount(amount)) {
+                account.balance += amount;
+                console.log("Added %d to the account.", amount);
+            } else {
+                throw new Error('Cannot add a negative amount to the account.');
+            }
+        }
     }
 }
